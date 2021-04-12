@@ -22,22 +22,22 @@ This extension utilizes tab show and hide APIs so giving it a permission to keep
 
 ## Screenshots
 
-Workspace manager extension UI
+Workspace manager extension UI<br/>
 ![workspace-list](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_icon.png)
 
-Hidden tab notification after a workspace is created
+Hidden tab notification after a workspace is created<br/>
 ![hidden-tab-notification](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_hidden_tabs_notification.png)
 
-A list of workspaces in the current window
+A list of workspaces in the current window<br/>
 ![another-workspace-list](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_list.png)
 
-A warning alert popup when renaming a workspace to an existing name
+A warning alert popup when renaming a workspace to an existing name<br/>
 ![rename-workspace](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_rename.png)
 
-A danger confirm popup when deleting a workspace
+A danger confirm popup when deleting a workspace<br/>
 ![delete-workspace](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_delete.png)
 
-A danger confirm popup when attempting to delete the last workspace
+A danger confirm popup when attempting to delete the last workspace<br/>
 ![delete-last-workspace](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_delete_last.png)
 
 ## Improvements
