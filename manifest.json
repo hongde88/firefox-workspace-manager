@@ -1,0 +1,36 @@
+{
+  "manifest_version": 2,
+  "name": "ld-workspace-manager",
+  "version": "1.0.0",
+  "description": "A workspace manager.",
+  "icons": {
+    "48": "icons/wsp-48.png",
+    "96": "icons/wsp-96.png"
+  },
+  "permissions": [
+    "tabs",
+    "tabHide",
+    "storage",
+    "menus",
+    "cookies"
+  ],
+  "browser_action": {
+    "browser_style": true,
+    "default_icon": {
+      "16": "icons/wsp-16.png",
+      "32": "icons/wsp-32.png",
+      "64": "icons/wsp-64.png"
+    },
+    "default_title": "Workspaces",
+    "default_popup": "popup/wsp.html"
+  },
+  "background": {
+    "scripts": [
+      "backend/storage.js",
+      "backend/workspace.js",
+      "backend/brainer.js",    
+      "backend/handler.js",
+      "backend/util.js"
+    ]
+  }
+}
