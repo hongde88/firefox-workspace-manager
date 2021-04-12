@@ -20,6 +20,20 @@ This extension utilizes tab show and hide APIs so giving it a permission to keep
 
 7. Rename a workspace by typing it out and hitting enter, or just clicking away from it.
 
+## Screenshots
+
+![workspace-list](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_icon.png)
+
+![hidden-tab-notification](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_hidden_tabs_notification.png)
+
+![another-workspace-list](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_list.png)
+
+![rename-workspace](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_rename.png)
+
+![delete-workspace](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_delete.png)
+
+![delete-last-workspace](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_delete_last.png)
+
 ## Improvements
 
 1. Send a tab to another workspace by right clicking the tab and choosing which workspace to send it to.
