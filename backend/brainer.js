@@ -1,28 +1,42 @@
 class Brainer {
   static registerListeners() {
-    // Need to create one if the extension is installed when tabs already exist
-    // setTimeout(async () => {
-    //   const currentWindow = await browser.windows.getCurrent();
-    //   const activeWsp = await Brainer.getActiveWsp(currentWindow.id);
+    // initial set up when first installed
+    browser.runtime.onInstalled.addListener(async (details) => {
+      const currentWindow = await browser.windows.getCurrent();
+      const activeWsp = await Brainer.getActiveWsp(currentWindow.id);
 
-    //   if (!activeWsp) {
-    //     const currentTabs = await browser.tabs.query({ windowId: currentWindow.id });
-    //     const wsp = {
-    //       id: Date.now(),
-    //       name: Util.generateWspName(),
-    //       active: true,
-    //       tabs: [...currentTabs.map(tab => tab.id)],
-    //       windowId: window.id
-    //     };
+      if (!activeWsp) {
+        const currentTabs = await browser.tabs.query({ windowId: currentWindow.id });
+        const wsp = {
+          id: Date.now(),
+          name: Brainer.generateWspName(),
+          active: true,
+          tabs: [...currentTabs.map(tab => tab.id)],
+          windowId: currentWindow.id
+        };
   
-    //     await Brainer.createWorkspace(wsp);
-    //     console.log('is it here');
-    //   }
-    // }, 1000);
-    // browser.commands.getAll().then(c => console.log(c));
-    // browser.commands.onCommand.addListener((name) => {
-    //   console.log(name);
-    // });
+        await Brainer.createWorkspace(wsp);
+      }
+    });
+
+    // make sure we don't miss an important event of this extension
+    browser.runtime.onUpdateAvailable.addListener(async (details) => {
+      const currentWindow = await browser.windows.getCurrent();
+      const activeWsp = await Brainer.getActiveWsp(currentWindow.id);
+
+      if (!activeWsp) {
+        const currentTabs = await browser.tabs.query({ windowId: currentWindow.id });
+        const wsp = {
+          id: Date.now(),
+          name: Brainer.generateWspName(),
+          active: true,
+          tabs: [...currentTabs.map(tab => tab.id)],
+          windowId: currentWindow.id
+        };
+  
+        await Brainer.createWorkspace(wsp);
+      }
+    });
 
     browser.windows.onCreated.addListener(async (window) => {
       const wsp = {
