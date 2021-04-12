@@ -1,4 +1,4 @@
-# A Workspace Manager Extension for FireFox
+# A Workspace Manager Extension for Firefox
 
 Let's group your tabs into workspaces to navigate through tabs more efficiently.
 
