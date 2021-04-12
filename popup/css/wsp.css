@@ -100,61 +100,9 @@ li.wsp-list-item {
 }
 
 li.wsp-list-item.active::after {
-  content: ' – active';
-  color: rgba(0,0,0,.25);
+  content: ' – current';
+  color: rgba(0, 0, 0, 0.438);
 }
-
-/* li.wsp-list-item:hover {
-  transform: translate(10px,0);
-} */
-
-/* li.workspace-edit-entry {
-  background: white;
-  box-shadow: 0 5px 10px rgba(0,0,0,.1);
-  margin: 15px 10px 0;
-  padding: 10px;
-  width: calc(100% - 20px);
-  cursor: pointer;
-  border-radius: 4px;
-  transition: all .7s cubic-bezier(0.770, 0.000, 0.175, 1.000);
-  font-size: .8em;
-  position: relative;
-  z-index: 1;
-} */
-
-/* li.workspace-edit-entry input {
-  width: 100%;
-  margin: 0;
-  border: 0;
-  font-size: 1em;
-  font-family: inherit;
-} */
-
-/* li.workspace-edit-entry input:disabled{
-  color: #333;
-  background: none;
-}
-
-li.workspace-edit-entry a.edit-button {
-  position: absolute;
-  top: 8px;
-  height: 16px;
-  width: 16px;
-}
-
-li.workspace-edit-entry a.edit-button-rename {
-  right: 36px;
-  background: url("../img/edit.svg");
-} */
-
-/* li.workspace-edit-entry a.edit-button-delete {
-  right: 10px;
-  background: url("../img/delete.svg");
-}
-
-li:only-child.workspace-edit-entry a.edit-button-delete {
-  opacity: 0.5;
-} */
 
 li.wsp-list-item .tabs-qty {
   /* position: absolute;
@@ -215,28 +163,6 @@ li.wsp-list-item a.delete-btn {
   right: 20px;
   background: url("../img/delete.svg");
 }
-
-/* .close {
-  position: absolute;
-  display: inline-block;
-  text-align: center;
-  top: 0;
-  left: 0;
-  background-color: #FF9A8B;
-  background-image: linear-gradient(90deg, #FF9A8B 0%, #FF6A88 100%);    
-  border-radius: 10px;
-  color: white;
-  font-weight: bold;
-  font-size: .875em;
-  min-width: 18px;
-  padding: 3px 4px;
-  top: -5px;
-  right: -5px;
-  bottom: auto;
-  left: auto;
-  z-index: 2;
-  cursor: pointer;
-} */
 
 .footer-container {
   background-color: #0093E9;
