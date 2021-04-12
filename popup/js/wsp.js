@@ -160,7 +160,8 @@ class WorkspaceUI {
             const wspName = span1.textContent;
 
             if (!this._isValidWorkspaceName(wspName)) {
-              alert(`${wspName} already exists!!! Please choose another name!!!`);
+              // alert(`${wspName} already exists!!! Please choose another name!!!`);
+              Fnon.Alert.Warning(`${wspName} already exists!!! Please choose another name!!!`, "Warning", "OK");
               span1.textContent = li.dataset.originalText;
               return;
             }
@@ -183,7 +184,8 @@ class WorkspaceUI {
           const wspName = span1.textContent;
 
           if (!this._isValidWorkspaceName(wspName)) {
-            alert(`${wspName} already exists!!! Please choose another name!!!`);
+            // alert(`${wspName} already exists!!! Please choose another name!!!`);
+            Fnon.Alert.Warning(`${wspName} already exists!!! Please choose another name!!!`, "Warning", "OK");
             span1.textContent = li.dataset.originalText;
             return;
           }
@@ -220,7 +222,8 @@ class WorkspaceUI {
             const wspName = span1.textContent;
 
             if (!this._isValidWorkspaceName(wspName)) {
-              alert(`${wspName} already exists!!! Please choose another name!!!`);
+              // alert(`${wspName} already exists!!! Please choose another name!!!`);
+              Fnon.Alert.Warning(`${wspName} already exists!!! Please choose another name!!!`, "Warning", "OK");
               span1.textContent = li.dataset.originalText;
               return;
             }
@@ -243,7 +246,8 @@ class WorkspaceUI {
           const wspName = span1.textContent;
 
           if (!this._isValidWorkspaceName(wspName)) {
-            alert(`${wspName} already exists!!! Please choose another name!!!`);
+            // alert(`${wspName} already exists!!! Please choose another name!!!`);
+            Fnon.Alert.Warning(`${wspName} already exists!!! Please choose another name!!!`, "Warning", "OK");
             span1.textContent = li.dataset.originalText;
             return;
           }
@@ -260,7 +264,8 @@ class WorkspaceUI {
 
     // delete a workspace
     deleteBtn.addEventListener("click", async (e) => {
-      const deleteConfirmed = confirm(`Are you sure you want to delete ${workspace.name}?`);
+      // const deleteConfirmed = confirm(`Are you sure you want to delete ${workspace.name}?`);
+      const deleteConfirmed = await this._promisfyConfirm(`Are you sure you want to delete ${workspace.name}?`);
 
       if (!deleteConfirmed) {
         return;
@@ -269,7 +274,9 @@ class WorkspaceUI {
       const liParent = li.parentElement;
 
       if (liParent.childElementCount === 1) {
-        const deleteLastWspConfirmed = confirm(`Deleting the last workspace will close the window.\nDo you still want to delete ${workspace.name}?`);
+        // const deleteLastWspConfirmed = confirm(`Deleting the last workspace will close the window.\nDo you still want to delete ${workspace.name}?`);
+
+        const deleteLastWspConfirmed = await this._promisfyConfirm(`Deleting the last workspace will close the window.\nDo you still want to delete ${workspace.name}?`);
 
         if (!deleteLastWspConfirmed) {
           return;
@@ -307,6 +314,14 @@ class WorkspaceUI {
       li.classList.remove("active");
       li.firstElementChild.checked = false;
     }
+  }
+
+  _promisfyConfirm(message) {
+    return new Promise((resolve, reject) => {
+      Fnon.Ask.Danger(message, "Danger", "OK", "Cancel", (result) => {
+        resolve(result);
+      });
+    });
   }
 }
 
