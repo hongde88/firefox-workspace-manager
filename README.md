@@ -20,6 +20,8 @@ This extension utilizes tab show and hide APIs so giving it a permission to keep
 
 7. Rename a workspace by typing it out and hitting enter, or just clicking away from it.
 
+8. Workspaces are sorted alphabetically and lexicographically.
+
 ## Screenshots
 
 Workspace manager extension UI<br/>
@@ -30,6 +32,9 @@ Hidden tab notification after a workspace is created<br/>
 
 A list of workspaces in the current window<br/>
 ![another-workspace-list](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_list.png)
+
+Workspaces are sorted alphabetically and lexicographically<br/>
+![another-workspace-list](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_sort.png)
 
 A warning alert popup when renaming a workspace to an existing name<br/>
 ![rename-workspace](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_rename.png)

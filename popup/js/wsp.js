@@ -307,6 +307,40 @@ class WorkspaceUI {
     const li = this._createListItemAndRegisterListeners(workspace);
 
     wspList.appendChild(li);
+
+    // it could have been sorted in place while added to the list
+    // however, this is easier to understand and implement
+    // if performance is an issue, then switch back to sort on fly
+    this._sortWorkspaces();
+  }
+
+  // from https://www.w3schools.com/howto/howto_js_sort_list.asp
+  _sortWorkspaces() {
+    let list, i, switching, b, shouldSwitch;
+
+    list = document.getElementById("wsp-list");
+
+    switching = true;
+
+    while (switching) {
+      switching = false;
+
+      b = list.getElementsByTagName("li");
+
+      for (i = 0; i < b.length - 1; i++) {
+        shouldSwitch = false;
+
+        if (b[i].dataset.originalText.localeCompare(b[i+1].dataset.originalText) > 0) {
+          shouldSwitch = true;
+          break;
+        }
+      }
+
+      if (shouldSwitch) {
+        b[i].parentNode.insertBefore(b[i+1], b[i]);
+        switching = true;
+      }
+    }
   }
 
   _removePreviouslyActiveLi() {
