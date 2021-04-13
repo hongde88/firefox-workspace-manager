@@ -40,6 +40,9 @@ A danger confirm popup when deleting a workspace<br/>
 A danger confirm popup when attempting to delete the last workspace<br/>
 ![delete-last-workspace](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_delete_last.png)
 
+Move a tab to a different workspace<br/>
+![move-tab-to-workspace](https://raw.githubusercontent.com/hongde88/firefox-workspace-manager/master/screenshots/wsp_move_tab.png)
+
 ## Improvements
 
 [x] Send a tab to another workspace by right clicking the tab and choosing which workspace to send it to.
