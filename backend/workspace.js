@@ -30,10 +30,10 @@ class Workspace {
     await WSPStorageManger.removeWsp(this.id, this.windowId);
   }
 
-  async activate() {
+  async activate(activeTabId = null) {
     if (this.tabs.length > 0) {
       await browser.tabs.show(this.tabs);
-      await browser.tabs.update(this.tabs[0], { active: true });
+      await browser.tabs.update(activeTabId || this.tabs[0], { active: true });
     }
     
     this.active = true;

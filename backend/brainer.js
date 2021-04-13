@@ -1,4 +1,9 @@
 class Brainer {
+  static async initialize() {
+    this.registerListeners();
+    await this.refreshTabMenu();
+  }
+
   static registerListeners() {
     // initial set up when first installed
     browser.runtime.onInstalled.addListener(async (details) => {
@@ -54,12 +59,19 @@ class Brainer {
       await WSPStorageManger.destroyWindow(windowId);
     });
 
+    browser.windows.onFocusChanged.addListener(async (windowId) => {
+      if (windowId !== browser.windows.WINDOW_ID_NONE) {
+        await this.refreshTabMenu();
+      }
+    });
+
     browser.tabs.onCreated.addListener(async (tab) => {
       const activeWsp = await Brainer.getActiveWsp(tab.windowId);
       
       if (activeWsp) {
         activeWsp.tabs.push(tab.id);
         await activeWsp._saveState();
+        await this.refreshTabMenu();
       } else {
         const intervalRef = setInterval(async () => {
           const activeWsp = await Brainer.getActiveWsp(tab.windowId);
@@ -67,6 +79,7 @@ class Brainer {
             clearInterval(intervalRef);
             activeWsp.tabs.push(tab.id);
             await activeWsp._saveState();
+            await this.refreshTabMenu();
           }
         }, 100);
       }
@@ -86,8 +99,43 @@ class Brainer {
             await Brainer.activateWsp(nextWspId);
           }
         }
+        await this.refreshTabMenu();
       }
     });
+  }
+
+  static async initializeTabMenu() {
+    const currentWindow = await browser.windows.getCurrent();
+    const workspaces = await Brainer.getWorkspaces(currentWindow.id);
+
+    const menuId = `ld-wsp-manager-menu-${currentWindow.id}-${Date.now()}-id`;
+
+    browser.menus.create({
+      id: menuId,
+      title: "Move Tab to Another Workspace",
+      enabled: workspaces.length > 1,
+      contexts: ["tab"]
+    });
+
+    workspaces.sort((a, b) => a.name.localeCompare(b.name));
+
+    let currentWsp = null;
+
+    for (const workspace of workspaces) {
+      if (workspace.active) {
+        currentWsp = workspace;
+      }
+
+      browser.menus.create({
+        title: `${workspace.name} (${workspace.tabs.length} tabs)`,
+        parentId: menuId,
+        id: `sub-menu-${Date.now()}-${workspace.id}-id`,
+        enabled: !workspace.active,
+        onclick: async (info, tab) => { 
+          await Brainer.moveTabToWsp(tab.id, currentWsp.id, workspace.id);
+        }
+      });
+    }
   }
 
   static async getWorkspaces(windowId) {
@@ -104,10 +152,14 @@ class Brainer {
     }
 
     await Workspace.create(wsp.id, wsp);
+
+    await this.refreshTabMenu();
   }
 
   static async renameWorkspace(wspId, wspName) {
     await Workspace.rename(wspId, wspName);
+
+    await this.refreshTabMenu();
   }
 
   static async getNumWorkspaces(windowId) {
@@ -136,9 +188,10 @@ class Brainer {
   static async destroyWsp(wspId) {
     const wsp = await WSPStorageManger.getWorkspace(wspId);
     await wsp.destroy();
+    await this.refreshTabMenu();
   }
 
-  static async activateWsp(wspId, windowId) {
+  static async activateWsp(wspId, windowId, activeTabId = null) {
     // make other workspaces inactive first
     const activeWsp = await Brainer.getActiveWsp(windowId);
 
@@ -148,13 +201,43 @@ class Brainer {
     }
 
     const wsp = await WSPStorageManger.getWorkspace(wspId);
-    await wsp.activate();
+    await wsp.activate(activeTabId);
     await Brainer.hideInactiveWspTabs(wsp.windowId);
+    await this.refreshTabMenu();
   }
 
   static generateWspName() {
     return Util.generateWspName(6);
   }
+
+  static async refreshTabMenu() {
+    await browser.menus.removeAll();
+    await Brainer.initializeTabMenu();
+  }
+
+  static async moveTabToWsp(tabId, fromWspId, toWspId) {
+    const fromWsp = await WSPStorageManger.getWorkspace(fromWspId);
+    const toWsp = await WSPStorageManger.getWorkspace(toWspId);
+
+    // add movedTabId to the toWsp workspace
+    toWsp.tabs.unshift(tabId);
+    toWsp._saveState();
+
+    const movedTabIdx = fromWsp.tabs.findIndex(tId => tId === tabId);
+
+    if (movedTabIdx >= 0) {
+      fromWsp.tabs.splice(movedTabIdx, 1);
+      await fromWsp._saveState();
+      if (fromWsp.tabs.length === 0) {
+        await Brainer.destroyWsp(fromWspId);
+      }
+      await Brainer.activateWsp(toWspId, toWsp.windowId, tabId);
+    }
+
+    await this.refreshTabMenu();
+  }
 }
 
-Brainer.registerListeners();
+(async () => {
+  await Brainer.initialize();
+})();

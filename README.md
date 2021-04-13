@@ -42,13 +42,13 @@ A danger confirm popup when attempting to delete the last workspace<br/>
 
 ## Improvements
 
-1. Send a tab to another workspace by right clicking the tab and choosing which workspace to send it to.
+[x] Send a tab to another workspace by right clicking the tab and choosing which workspace to send it to.
 
-2. Save and load workspaces.
+[ ] Save and load workspaces.
 
-3. Smoothness in hiding and show tabs between workspace switches.
+[ ] Smoothness in hiding and show tabs between workspace switches.
 
-4. Support for commands/shortcuts to open and navigate through the list of workspaces.
+[ ] Support for commands/shortcuts to open and navigate through the list of workspaces.
 
 ## Issues and Feature Requests
 

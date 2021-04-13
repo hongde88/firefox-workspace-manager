@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "workspace-manager",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A workspace manager.",
   "icons": {
     "48": "icons/wsp-48.png",

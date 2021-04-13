@@ -14,6 +14,8 @@ class WorkspaceUI {
 
     const workspaces = await this._callBackgroundTask("getWorkspaces", { windowId: currentWindowId });
 
+    workspaces.sort((a, b) => a.name.localeCompare(b.name));
+
     return workspaces;
   }
 
