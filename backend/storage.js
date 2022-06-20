@@ -67,13 +67,16 @@ class WSPStorageManger {
     });
   }
 
+  // delete data (window id and associated tabs) associated to window
   static async destroyWindow(windowId) {
     const key = `ld-wsp-window-${windowId}`;
     const results = await browser.storage.local.get(key);
     const wspIds = results[key] || [];
 
+    // 1. delete window-id: [array of associated workspaces ids] from local storage
     await browser.storage.local.remove(key);
 
+    // 2. delete all workspace-ids: [array of tabs] associated with that window from local storage
     await Promise.all(wspIds.map(WSPStorageManger.deleteWspState));
 
     await browser.storage.local.remove(`${key}-first-wsp-creation`);

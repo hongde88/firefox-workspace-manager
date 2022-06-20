@@ -55,6 +55,7 @@ class Brainer {
       await Brainer.createWorkspace(wsp);
     });
 
+    // when a window is closed, delete workspaces data associated to this window
     browser.windows.onRemoved.addListener(async (windowId) => {
       await WSPStorageManger.destroyWindow(windowId);
     });
